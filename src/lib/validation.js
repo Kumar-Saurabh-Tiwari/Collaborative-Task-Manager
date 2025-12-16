@@ -74,10 +74,11 @@ export const validate = (schema, data) => {
   }
 };
 
-export default {
+const validationSchemas = {
   taskSchema,
   registerSchema,
   loginSchema,
   profileSchema,
   validate,
 };
+export default validationSchemas;

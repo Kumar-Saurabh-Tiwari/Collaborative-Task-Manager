@@ -41,7 +41,7 @@ export default function LoginPage() {
     };
 
     checkAuth();
-  }, []);
+  }, [router]);
 
   if (isRedirecting) {
     return (
@@ -146,7 +146,7 @@ export default function LoginPage() {
 
         {/* Sign Up Link */}
         <p className="text-center text-gray-600 text-sm mt-4">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <a href="/register" className="text-blue-500 hover:text-blue-700 font-medium">
             Sign Up
           </a>

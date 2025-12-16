@@ -45,7 +45,7 @@ export default function RegisterPage() {
     };
 
     checkAuth();
-  }, []);
+  }, [router]);
 
   if (isRedirecting) {
     return (

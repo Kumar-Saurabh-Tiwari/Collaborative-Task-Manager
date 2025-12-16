@@ -61,12 +61,12 @@ export const useTasks = (options = {}) => {
     } finally {
       setIsLoading(false);
     }
-  }, [filter, status, priority, sortBy]);
+  }, [filter, status, priority, sortBy, router]);
 
   // Fetch tasks on mount and when dependencies change
   useEffect(() => {
     getTasksData();
-  }, [filter, status, priority, sortBy]);
+  }, [getTasksData]);
 
   // Setup Socket.io listeners for real-time updates
   useEffect(() => {
