@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL ||  'https://task-management-backend-rsgy.onrender.com' || 'http://localhost:5000';
 
 let socket = null;
 

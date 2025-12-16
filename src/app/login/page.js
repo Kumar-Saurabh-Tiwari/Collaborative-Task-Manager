@@ -27,7 +27,7 @@ export default function LoginPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/users/me', {
+        const response = await fetch('https://task-management-backend-rsgy.onrender.com/api/users/me', {
           credentials: 'include',
         });
 
