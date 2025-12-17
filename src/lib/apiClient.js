@@ -17,6 +17,13 @@ const apiClient = axios.create({
  */
 apiClient.interceptors.request.use(
   (config) => {
+    // Add token from localStorage if available
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
     return config;
   },
   (error) => {
@@ -26,18 +33,16 @@ apiClient.interceptors.request.use(
 
 /**
  * Response interceptor to handle errors
+ * Note: 401 errors are not automatically redirected here.
+ * Each component should handle auth errors gracefully.
  */
 apiClient.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
-    if (error.response?.status === 401) {
-      // Redirect to login if unauthorized
-      if (typeof window !== 'undefined') {
-        window.location.href = '/login';
-      }
-    }
+    // Don't auto-redirect on 401 - let components handle it
+    // This prevents blocking the app flow
     return Promise.reject(error);
   }
 );

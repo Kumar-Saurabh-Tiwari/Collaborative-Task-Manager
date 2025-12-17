@@ -72,9 +72,17 @@ export default function LoginPage() {
       // Call login API
       const response = await authAPI.login(data.email, data.password);
 
-      if (response.status === 200) {
-        // Redirect to dashboard
-        router.push('/');
+      if (response.status === 200 && response.data?.data?.token) {
+        // Save token to localStorage
+        localStorage.setItem('token', response.data.data.token);
+        
+        // Redirect to dashboard after a short delay to ensure state updates
+        setIsRedirecting(true);
+        setTimeout(() => {
+          router.push('/');
+        }, 500);
+      } else {
+        setError('Login failed. Please try again.');
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');

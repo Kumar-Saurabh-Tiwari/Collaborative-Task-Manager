@@ -27,7 +27,7 @@ export default function LoginPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('/api/users/me', {
+        const response = await fetch('https://task-management-backend-rsgy.onrender.com/api/users/me', {
           credentials: 'include',
         });
 
@@ -35,6 +35,7 @@ export default function LoginPage() {
           setIsRedirecting(true);
           router.push('/');
         }
+        // If 401 or other errors, user is not authenticated - allow login to proceed
       } catch (error) {
         // User is not authenticated, allow login
       }

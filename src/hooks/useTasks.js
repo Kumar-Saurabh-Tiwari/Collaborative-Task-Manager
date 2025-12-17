@@ -115,8 +115,12 @@ export const useAuth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        // Get token from localStorage
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        
         const response = await fetch('https://task-management-backend-rsgy.onrender.com/api/users/me', {
           credentials: 'include',
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
         });
 
         if (response.ok) {
@@ -127,7 +131,12 @@ export const useAuth = () => {
           // Initialize Socket.io connection
           const { initSocket } = await import('../lib/socket');
           initSocket(data.data.id);
+        } else if (response.status === 401) {
+          // 401 Unauthorized - user is not logged in
+          localStorage.removeItem('token');
+          setIsAuthenticated(false);
         } else {
+          // Other errors - also set as not authenticated
           setIsAuthenticated(false);
         }
       } catch (error) {
